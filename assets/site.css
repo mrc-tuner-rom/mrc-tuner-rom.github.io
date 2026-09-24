@@ -135,10 +135,15 @@ h1 .accent { color: var(--accent); }
   background:
     linear-gradient(180deg, rgba(40,170,95,.08), transparent 60%),
     var(--panel);
-  padding: 22px;
+  padding: 20px;
   box-shadow: 0 24px 60px rgba(0, 0, 0, .38);
 }
-.hero-art img { width: 100%; display: block; border-radius: 8px; }
+.hero-art img {
+  display: block;
+  margin: 0 auto;
+  max-width: 430px;
+  width: 100%;
+}
 .caption { color: var(--dimmer); font-size: 13px; margin-top: 12px; text-align: center; }
 
 /* ── stats ──────────────────────────────────────────────── */
