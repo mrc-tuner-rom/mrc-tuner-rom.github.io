@@ -1,0 +1,103 @@
+/* MRC Tuner Rom — documentation theme (matches the desktop application's
+   signature palette: deep green surfaces, warm orange accent). */
+
+:root {
+  --mtr-green: #28aa5f;
+  --mtr-green-dark: #1d8f4c;
+  --mtr-green-soft: rgba(40, 170, 95, .14);
+  --mtr-accent: #ff8c3a;
+  --mtr-border: #183e2c;
+  --mtr-panel: #0b2118;
+  --mtr-bg: #07150f;
+  --mtr-text: #d6f0e1;
+  --mtr-dim: #73a58a;
+}
+
+[data-md-color-scheme="slate"] {
+  --md-primary-fg-color: #07150f;
+  --md-primary-fg-color--light: #0b2118;
+  --md-primary-fg-color--dark: #04100a;
+  --md-accent-fg-color: #ff8c3a;
+  --md-default-bg-color: #07150f;
+  --md-default-fg-color: #d6f0e1;
+  --md-default-fg-color--light: #73a58a;
+  --md-default-fg-color--lighter: #4d7561;
+  --md-default-fg-color--lightest: #183e2c;
+  --md-code-fg-color: #d6f0e1;
+  --md-code-bg-color: #0b2118;
+  --md-typeset-a-color: #3cc878;
+  --md-footer-bg-color: #050f0a;
+  --md-footer-bg-color--dark: #04100a;
+  --md-search-bg-color: #0b2118;
+  --md-search-border-color: #183e2c;
+  --md-nav-border-color: #183e2c;
+  --md-admonition-title--tip-bg-color: rgba(40, 170, 95, .12);
+  --md-admonition-title--tip-border-color: #28aa5f;
+  --md-admonition-title--warning-bg-color: rgba(255, 140, 58, .12);
+  --md-admonition-title--warning-border-color: #ff8c3a;
+}
+
+[data-md-color-scheme="default"] {
+  --md-primary-fg-color: #0f3d25;
+  --md-primary-fg-color--light: #175c37;
+  --md-primary-fg-color--dark: #0a2b1a;
+  --md-accent-fg-color: #c85f10;
+  --md-default-bg-color: #f4faf6;
+  --md-default-fg-color: #10281c;
+  --md-default-fg-color--light: #3d6350;
+  --md-default-fg-color--lighter: #5d8570;
+  --md-default-fg-color--lightest: #cfe3d6;
+  --md-code-fg-color: #10281c;
+  --md-code-bg-color: #e8f5ec;
+  --md-typeset-a-color: #146c3e;
+  --md-footer-bg-color: #e8f5ec;
+  --md-footer-bg-color--dark: #d8ecdf;
+  --md-nav-border-color: #cfe3d6;
+  --md-search-bg-color: #ffffff;
+  --md-search-border-color: #cfe3d6;
+}
+
+.md-header {
+  background: linear-gradient(90deg, #07150f, #0e2a1e 55%, #07150f);
+  border-bottom: 1px solid var(--mtr-border);
+}
+.md-header__button.md-logo img,
+.md-header__button.md-logo svg { fill: #fff; }
+.md-tabs { background: #050f0a; border-bottom: 1px solid var(--mtr-border); }
+.md-tabs__link { color: var(--mtr-dim); }
+.md-tabs__link--active,
+.md-tabs__link:hover { color: var(--mtr-accent); }
+.md-search__form { background: var(--mtr-panel); }
+.md-search__input { background: var(--mtr-bg); border: 1px solid var(--mtr-border); }
+.md-search__input:focus { border-color: var(--mtr-green); }
+
+.md-typeset h1,
+.md-typeset h2,
+.md-typeset h3 { color: var(--md-default-fg-color); font-weight: 700; }
+.md-typeset h1 { border-bottom: 1px solid var(--mtr-border); padding-bottom: .35em; }
+.md-typeset h2 { color: var(--mtr-green); }
+.md-typeset a { color: var(--md-typeset-a-color); }
+.md-typeset a:hover { color: var(--mtr-accent); }
+.md-typeset code { color: var(--mtr-accent); background: rgba(40, 170, 95, .10); }
+.md-typeset pre > code { background: var(--md-code-bg-color); }
+.md-typeset table:not([class]) { border-color: var(--mtr-border); }
+.md-typeset table:not([class]) th { background: var(--mtr-panel); }
+.md-typeset hr { border-bottom: 1px solid var(--mtr-border); }
+
+.md-typeset .admonition,
+.md-typeset details { border-radius: 12px; }
+
+.md-footer { border-top: 1px solid var(--mtr-border); }
+
+.md-nav__title { font-weight: 700; letter-spacing: .01em; }
+
+/* Landing page hero inside the manual */
+.mtr-hero {
+  border: 1px solid var(--mtr-border);
+  border-radius: 14px;
+  padding: 26px 24px;
+  margin: 0 0 28px;
+  background: linear-gradient(135deg, var(--mtr-green-soft), rgba(255, 140, 58, .08));
+}
+.mtr-hero h1 { margin-top: 0; border: 0; }
+.mtr-hero img { max-width: 420px; display: block; margin: 0 auto 14px; }

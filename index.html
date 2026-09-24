@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="tr" data-lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MRC Tuner Rom — Açık kaynak ECU kalibrasyon istasyonu</title>
+<meta name="description" content="ROM dökümlerini etiketli, ölçekli ve düzenlenebilir haritalara dönüştüren açık kaynak ECU kalibrasyon ve tuning yazılımı.">
+<link rel="icon" href="assets/mark.png" type="image/png">
+<link rel="stylesheet" href="assets/site.css">
+<script>
+  (function () {
+    var q = new URLSearchParams(location.search).get('lang');
+    if (q === 'en' || q === 'zh' || q === 'tr') {
+      document.documentElement.setAttribute('data-lang', q);
+    }
+  })();
+</script>
+</head>
+<body data-title-tr="MRC Tuner Rom — Açık kaynak ECU kalibrasyon istasyonu"
+      data-title-en="MRC Tuner Rom — Open-source ECU calibration workstation"
+      data-title-zh="MRC Tuner Rom — 开源 ECU 标定工作站">
+
+<header class="site">
+  <div class="wrap bar">
+    <a class="brand" href="./">
+      <img class="mark" src="assets/mark.png" alt="MRC Tuner Rom">
+      <span>MRC&nbsp;Tuner&nbsp;Rom</span>
+    </a>
+    <button class="menu-btn" type="button">☰</button>
+    <nav class="links">
+      <a href="#features" data-tr="Özellikler" data-en="Features" data-zh="功能特性">Özellikler</a>
+      <a href="#ai" data-tr="AI Asistanı" data-en="AI Assistant" data-zh="AI 助手">AI Asistanı</a>
+      <a href="#formats" data-tr="Formatlar" data-en="Formats" data-zh="格式">Formatlar</a>
+      <a href="docs/" data-tr="Kılavuz" data-en="Manual" data-zh="手册">Kılavuz</a>
+      <span class="lang">
+        <button type="button" data-set-lang="tr">TR</button>
+        <button type="button" data-set-lang="en">EN</button>
+        <button type="button" data-set-lang="zh">中文</button>
+      </span>
+    </nav>
+  </div>
+</header>
+
+<!-- ══ HERO ══════════════════════════════════════════════ -->
+<div class="wrap">
+<section class="hero">
+  <span class="pill"><b>v1.0.0-beta11</b> · GPL-3.0-or-later</span>
+
+  <div data-lang-block="tr">
+    <h1>Ham baytları <span class="accent">anlamlı haritalara</span> dönüştürün</h1>
+    <p class="lead">MRC Tuner Rom; A2L, HEX, OLS veya ham dökümden başlayarak bir ECU'nun
+      tüm kalibrasyon haritalarını fiziksel birimlerle açar, düzenlemenizi sağlar,
+      doğrular ve başka ROM'lara taşınabilir paketlere dönüştürür.</p>
+  </div>
+  <div data-lang-block="en" style="display:none">
+    <h1>Turn raw bytes into <span class="accent">meaningful maps</span></h1>
+    <p class="lead">MRC Tuner Rom starts from A2L, HEX, OLS or a raw dump, opens every
+      calibration map of an ECU in physical units, lets you edit it, verifies the
+      result and exports it as packages you can carry to other ROMs.</p>
+  </div>
+  <div data-lang-block="zh" style="display:none">
+    <h1>把原始字节变成<span class="accent">有意义的标定图</span></h1>
+    <p class="lead">MRC Tuner Rom 从 A2L、HEX、OLS 或原始转储出发，以物理单位打开 ECU
+      的全部标定图，允许你进行编辑与校验，并导出可迁移到其他 ROM 的数据包。</p>
+  </div>
+
+  <div class="cta">
+    <a class="btn btn-primary" href="docs/?lang=tr" data-tr="Kılavuzu oku →" data-en="Read the manual →" data-zh="阅读手册 →">Kılavuzu oku →</a>
+    <a class="btn btn-ghost" href="https://github.com/lepotane/MRC-Tuner-Rom" data-tr="Kaynak kodu" data-en="Source code" data-zh="源代码">Kaynak kodu</a>
+  </div>
+
+  <div class="hero-art">
+    <img src="assets/logo.png" alt="MRC Tuner Rom">
+    <p class="caption" data-tr="MRC Tuner Rom — AI destekli ECU tuning istasyonu"
+       data-en="MRC Tuner Rom — AI-assisted ECU tuning workstation"
+       data-zh="MRC Tuner Rom — AI 辅助的 ECU 调校工作站">MRC Tuner Rom</p>
+  </div>
+</section>
+
+<!-- ══ STATS ═════════════════════════════════════════════ -->
+<div class="stats">
+  <div class="stat"><b>874</b><span data-tr="ECU tanım kaydı" data-en="ECU definition records" data-zh="ECU 定义记录">ECU tanım kaydı</span></div>
+  <div class="stat"><b>61</b><span data-tr="AI aracı" data-en="AI tools" data-zh="AI 工具">AI aracı</span></div>
+  <div class="stat"><b>148</b><span data-tr="checksum modülü" data-en="checksum modules" data-zh="checksum 模块">checksum modülü</span></div>
+  <div class="stat"><b>6</b><span data-tr="arayüz dili · 3 platform" data-en="UI languages · 3 platforms" data-zh="界面语言 · 3 个平台">arayüz dili</span></div>
+</div>
+</div>
+
+<!-- ══ FEATURES ═══════════════════════════════════════════ -->
+<section id="features">
+  <div class="wrap">
+    <p class="eyebrow" data-tr="Neler var" data-en="What's inside" data-zh="功能">Neler var</p>
+    <h2 data-tr="Bir kalibrasyon istasyonunun ihtiyacı olan her şey" data-en="Everything a calibration workstation needs" data-zh="标定工作站所需的一切">Bir kalibrasyon istasyonunun ihtiyacı olan her şey</h2>
+    <p class="sub" data-tr="Tek çalışma alanında içe aktarma, düzenleme, doğrulama ve paylaşım."
+       data-en="Import, edit, verify and share — all in one workspace."
+       data-zh="在同一工作区完成导入、编辑、校验与分享。">…</p>
+
+    <div class="grid">
+      <div class="card">
+        <span class="ico">▤</span>
+        <h3 data-tr="A2L / DAMOS ayrıştırma" data-en="A2L / DAMOS parsing" data-zh="A2L / DAMOS 解析">A2L / DAMOS ayrıştırma</h3>
+        <p data-tr="RECORD_LAYOUT, işaretli/imzasız veri tipleri, STD_AXIS / COM_AXIS / FIX_AXIS ve COMPU_METHOD ölçeklemesiyle tam tanım."
+           data-en="Full definition support: RECORD_LAYOUT, signed/unsigned types, STD_AXIS / COM_AXIS / FIX_AXIS and COMPU_METHOD scaling."
+           data-zh="完整支持 RECORD_LAYOUT、有/无符号类型、STD_AXIS / COM_AXIS / FIX_AXIS 以及 COMPU_METHOD 缩放。">…</p>
+      </div>
+      <div class="card">
+        <span class="ico">◱</span>
+        <h3 data-tr="Text · 2d · 3d görünüm" data-en="Text · 2d · 3d views" data-zh="Text · 2d · 3d 视图">Text · 2d · 3d</h3>
+        <p data-tr="Aynı haritayı ham bayt tablosu, dalga formu ve 3B yüzey olarak görün; 8/16/32-bit işaretli ve işaretsiz."
+           data-en="See the same map as raw bytes, waveform and 3D surface; 8/16/32-bit signed and unsigned."
+           data-zh="同一张标定图可切换原始字节、波形与三维曲面；支持 8/16/32 位有符号与无符号。">…</p>
+      </div>
+      <div class="card">
+        <span class="ico">◈</span>
+        <h3 data-tr="Bağlı ROM ve karşılaştırma" data-en="Linked ROM &amp; comparison" data-zh="关联 ROM 与对比">Bağlı ROM</h3>
+        <p data-tr="Değiştirilmiş ROM'u orijinaline bağlayın, haritaları otomatik eşleştirin, Differences panelinde satır satır farkı görün."
+           data-en="Link a modified ROM to its original, match maps automatically and review differences side by side."
+           data-zh="把修改后的 ROM 关联到原版，自动匹配标定图，在 Differences 面板中逐行查看差异。">…</p>
+      </div>
+      <div class="card">
+        <span class="ico">▧</span>
+        <h3 data-tr="Geniş format desteği" data-en="Broad format support" data-zh="格式支持广泛">Geniş format desteği</h3>
+        <p data-tr="A2L, DAMOS, Intel HEX, Motorola S-record, BIN/ROM, WinOLS, KP, TunerPro XDF ve VAG kapsayıcıları."
+           data-en="A2L, DAMOS, Intel HEX, Motorola S-record, BIN/ROM, WinOLS, KP, TunerPro XDF and VAG containers."
+           data-zh="A2L、DAMOS、Intel HEX、Motorola S-record、BIN/ROM、WinOLS、KP、TunerPro XDF 与 VAG 容器。">…</p>
+      </div>
+      <div class="card">
+        <span class="ico">◐</span>
+        <h3 data-tr="Checksum yönetimi" data-en="Checksum manager" data-zh="Checksum 管理">Checksum</h3>
+        <p data-tr="Yerleşik Bosch MED17/EDC17 doğrulaması; 148 modüllük Windows kütüphanesiyle geniş ECU ailesi desteği."
+           data-en="Built-in Bosch MED17/EDC17 verification, plus a 148-module Windows library for wider ECU coverage."
+           data-zh="内置 Bosch MED17/EDC17 校验，并提供 148 个模块的 Windows 库以覆盖更多 ECU 家族。">…</p>
+      </div>
+      <div class="card">
+        <span class="ico">◱</span>
+        <h3 data-tr="Sürüm anlık görüntüleri" data-en="Version snapshots" data-zh="版本快照">Sürüm anlık görüntüleri</h3>
+        <p data-tr="Her düzenlemeden önce adlandırılmış bir snapshot alın; istediğiniz zaman geri dönün, iki sürümü karşılaştırın."
+           data-en="Take named snapshots, roll back safely and compare any version against stock."
+           data-zh="创建命名快照，随时安全回滚，并可将任意版本与原厂版本对比。">…</p>
+      </div>
+      <div class="card">
+        <span class="ico">◇</span>
+        <h3 data-tr="Yamalar ve harita paketleri" data-en="Patches &amp; map packs" data-zh="补丁与标定图包">Yamalar ve paketler</h3>
+        <p data-tr="Değişiklikleri .mtrpatch yaması veya .mtrpack paketi olarak dışa aktarın, başka ROM sürümlerine adres eşleştirme ile uygulayın."
+           data-en="Export changes as .mtrpatch or .mtrpack and apply them to other ROM versions with address matching."
+           data-zh="以 .mtrpatch 或 .mtrpack 导出改动，并通过地址匹配应用到其他 ROM 版本。">…</p>
+      </div>
+      <div class="card">
+        <span class="ico">⌘</span>
+        <h3 data-tr="Lua otomasyonu" data-en="Lua automation" data-zh="Lua 自动化">Lua otomasyonu</h3>
+        <p data-tr="Gömülü Lua 5.4 ile tekrarlayan işleri betikleyin: toplu düzenleme, dışa aktarma, HTTP istekleri, karşılaştırma."
+           data-en="Script repetitive work with embedded Lua 5.4: batch edits, exports, HTTP requests, comparisons."
+           data-zh="使用内嵌 Lua 5.4 编写脚本：批量编辑、导出、HTTP 请求与对比。">…</p>
+      </div>
+      <div class="card">
+        <span class="ico">◍</span>
+        <h3 data-tr="AI harita adı çevirisi" data-en="AI map-name translation" data-zh="AI 标定图名翻译">AI çeviri</h3>
+        <p data-tr="Almanca/Bosch harita adlarını ve açıklamalarını çevirir; sonuçları önizleme penceresinde düzeltebilirsiniz."
+           data-en="Translate German/Bosch map names and descriptions, then correct results in a live preview."
+           data-zh="翻译德语/博世标定图名称与说明，并可在实时预览中修正结果。">…</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ AI ═════════════════════════════════════════════════ -->
+<section id="ai">
+  <div class="wrap">
+    <p class="eyebrow" data-tr="AI asistanı" data-en="AI assistant" data-zh="AI 助手">AI asistanı</p>
+    <h2 data-tr="İstediğiniz değişikliği söyleyin, o haritayı bulsun" data-en="Say what you want; it finds the map" data-zh="说出你的需求，由它找到标定图">İstediğiniz değişikliği söyleyin</h2>
+    <p class="sub" data-tr="Asistan tahmin yürütmez: 61 aracıyla projenin gerçek verisini okur, ne yapacağını yazar ve onayınızı ister."
+       data-en="The assistant does not guess: it reads the real project through 61 tools, states what it will do and asks for approval."
+       data-zh="助手不做猜测：它通过 61 个工具读取真实工程数据，说明将要执行的操作并请求你的批准。">…</p>
+
+    <div class="chat">
+      <div class="msg">
+        <div class="who">TR</div>
+        <div class="bubble" data-tr="Bu ROM'daki katalizör izleme haritalarını bul ve eşikleri sıfırla."
+           data-en="Find the catalyst monitoring maps in this ROM and zero their thresholds."
+           data-zh="在这份 ROM 中找到催化器监测标定图并把阈值清零。">…</div>
+      </div>
+      <div class="msg ai">
+        <div class="who">AI</div>
+        <div class="bubble">
+          <div data-lang-block="tr">İlk olarak ad desenleriyle arıyorum:</div>
+          <div data-lang-block="en" style="display:none">Searching by name patterns first:</div>
+          <div data-lang-block="zh" style="display:none">先按名称模式搜索：</div>
+          <div style="margin:8px 0"><span class="tool">search_maps("DKAT*")</span>
+            <span class="tool">search_maps("KAT*")</span></div>
+          <div data-lang-block="tr">3 katalizör haritası bulundu. Her biri için onay kartı hazırlıyorum.
+            <span class="tool ok">zero_map()</span> çağrıları yazma onayınızı bekliyor.
+          </div>
+          <div data-lang-block="en" style="display:none">Found 3 catalyst maps. Preparing an approval card for each;
+            the <span class="tool ok">zero_map()</span> calls are waiting for your confirmation.
+          </div>
+          <div data-lang-block="zh" style="display:none">找到 3 个催化器标定图，正在为每一项生成审批卡片；
+            <span class="tool ok">zero_map()</span> 调用正等待你的确认。
+          </div>
+        </div>
+      </div>
+      <div class="msg ai">
+        <div class="who">AI</div>
+        <div class="bubble" data-tr="Not: Bu tür değişiklikler emniyet ve emisyon testlerini etkiler. Başlamadan önce ölçümünüzü yapın ve mevzuatınıza uygunluğu doğrulayın."
+           data-en="Note: changes like these affect safety and emissions tests. Measure before you start and check your local regulations."
+           data-zh="提示：此类改动会影响安全与排放测试。开始前请先测量，并确认符合当地法规。">…</div>
+      </div>
+    </div>
+
+    <div class="chips" data-lang-block="tr">
+      <span class="chip">cat off</span><span class="chip">DPF devre dışı</span>
+      <span class="chip">EGR off</span><span class="chip">pops &amp; bangs</span>
+      <span class="chip">hız limiti</span><span class="chip">boost artışı</span>
+      <span class="chip">devir limiti</span><span class="chip">launch control</span>
+    </div>
+    <div class="chips" data-lang-block="en" style="display:none">
+      <span class="chip">cat off</span><span class="chip">DPF disable</span>
+      <span class="chip">EGR off</span><span class="chip">pops &amp; bangs</span>
+      <span class="chip">speed limiter</span><span class="chip">boost increase</span>
+      <span class="chip">rev limiter</span><span class="chip">launch control</span>
+    </div>
+    <div class="chips" data-lang-block="zh" style="display:none">
+      <span class="chip">cat off</span><span class="chip">关闭 DPF</span>
+      <span class="chip">EGR off</span><span class="chip">pops &amp; bangs</span>
+      <span class="chip">取消限速</span><span class="chip">提高增压</span>
+      <span class="chip">提高断油转速</span><span class="chip">弹射起步</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FORMATS ════════════════════════════════════════════ -->
+<section id="formats">
+  <div class="wrap">
+    <p class="eyebrow" data-tr="Dosya formatları" data-en="File formats" data-zh="文件格式">Dosya formatları</p>
+    <h2 data-tr="Ne okur, ne yazar" data-en="What it reads and writes" data-zh="支持读写的格式">Ne okur, ne yazar</h2>
+    <p class="sub" data-tr="Aynı proje içinde içe aktarıp dışa aktarabilir, farklı ROM sürümleri arasında taşıyabilirsiniz."
+       data-en="Import, export and carry work between ROM versions."
+       data-zh="在同一个工程中导入导出，并在不同 ROM 版本之间迁移。">…</p>
+    <table class="simple">
+      <thead>
+        <tr>
+          <th data-tr="Amaç" data-en="Purpose" data-zh="用途">Amaç</th>
+          <th data-tr="Dosya" data-en="Files" data-zh="文件">Dosya</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td data-tr="Proje" data-en="Project" data-zh="工程">Proje</td><td><code>.mtrp</code></td></tr>
+        <tr><td data-tr="A2L / DAMOS" data-en="A2L / DAMOS" data-zh="A2L / DAMOS">A2L / DAMOS</td><td><code>.a2l .dam .damos</code></td></tr>
+        <tr><td data-tr="HEX / S-record" data-en="HEX / S-record" data-zh="HEX / S-record">HEX / S-record</td><td><code>.hex .s19 .s28 .s37</code></td></tr>
+        <tr><td data-tr="Ham ROM" data-en="Raw ROM" data-zh="原始 ROM">Ham ROM</td><td><code>.bin .rom .ori .mpc</code></td></tr>
+        <tr><td data-tr="WinOLS / KP" data-en="WinOLS / KP" data-zh="WinOLS / KP">WinOLS / KP</td><td><code>.ols .kp</code></td></tr>
+        <tr><td data-tr="TunerPro" data-en="TunerPro" data-zh="TunerPro">TunerPro</td><td><code>.xdf</code></td></tr>
+        <tr><td data-tr="VAG kapsayıcı" data-en="VAG container" data-zh="VAG 容器">VAG</td><td><code>.frf .sgo .odx</code></td></tr>
+        <tr><td data-tr="Harita paketi" data-en="Map pack" data-zh="标定图包">Harita paketi</td><td><code>.mtrpack</code></td></tr>
+        <tr><td data-tr="ROM yaması" data-en="ROM patch" data-zh="ROM 补丁">ROM yaması</td><td><code>.mtrpatch</code></td></tr>
+        <tr><td data-tr="Liste / rapor / betik" data-en="List / report / script" data-zh="列表 / 报告 / 脚本">Liste / rapor / betik</td><td><code>.csv .json .html .lua .mtrtheme</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ══ EDITION ════════════════════════════════════════════ -->
+<section id="edition">
+  <div class="wrap">
+    <div class="cta-band">
+      <p class="eyebrow" data-tr="Topluluk sürümü" data-en="Community edition" data-zh="社区版">Topluluk sürümü</p>
+      <h2 data-tr="Ücretsiz, açık kaynak, kısıtsız" data-en="Free, open source, unrestricted" data-zh="免费、开源、无限制">Ücretsiz, açık kaynak, kısıtsız</h2>
+      <p class="sub" style="margin:0 auto 24px" data-tr="Depo GPL-3.0-or-later lisansıyla dağıtılır: tüm formatlar, harita düzenleyici, AI asistanı, Lua motoru ve checksum yönetimi dahildir."
+         data-en="The repository ships under GPL-3.0-or-later: every format, the map editor, the AI assistant, the Lua engine and checksum management included."
+         data-zh="仓库以 GPL-3.0-or-later 发布：包含全部格式、标定图编辑器、AI 助手、Lua 引擎与 checksum 管理。">…</p>
+      <div class="cta" style="justify-content:center">
+        <a class="btn btn-primary" href="docs/?lang=tr" data-tr="Kılavuzu aç" data-en="Open the manual" data-zh="打开手册">Kılavuzu aç</a>
+        <a class="btn btn-ghost" href="https://github.com/lepotane/MRC-Tuner-Rom" data-tr="Depoyu görüntüle" data-en="View the repository" data-zh="查看仓库">Depoyu görüntüle</a>
+      </div>
+      <p class="caption" style="margin-top:18px" data-tr="Bu depo şu anda özel (private) durumdadır; indirme bağlantıları yayınlandığında burada listelenecektir."
+         data-en="This repository is currently private; download links will be listed here once releases are published."
+         data-zh="本仓库目前为私有状态；发布版本后将在此列出下载链接。">…</p>
+    </div>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="links">
+      <a href="docs/?lang=tr" data-tr="Kılavuz" data-en="Manual" data-zh="手册">Kılavuz</a>
+      <a href="https://github.com/lepotane/MRC-Tuner-Rom">GitHub</a>
+      <a href="NOTICES.md" data-tr="Üçüncü taraf bildirimleri" data-en="Third-party notices" data-zh="第三方声明">Üçüncü taraf</a>
+      <a href="LICENSE" data-tr="Lisans" data-en="License" data-zh="许可证">Lisans</a>
+    </div>
+    <p>© <span data-year>2026</span> Samet Muriç · MRC Tuner Rom ·
+      <span data-tr="GPL-3.0-or-later" data-en="GPL-3.0-or-later" data-zh="GPL-3.0-or-later">GPL-3.0-or-later</span></p>
+  </div>
+</footer>
+
+<script src="assets/site.js"></script>
+</body>
+</html>
