@@ -1,15 +1,15 @@
-/* Honour ?lang=tr|en|zh in the address bar: the manual's default language is
-   Turkish, so /docs/ is Turkish and /docs/en/, /docs/zh/ are the translations.
-   A request like /docs/?lang=en jumps straight to the English page that is
-   currently open. */
+/* Honour ?lang=tr|en|zh in the address bar.
+
+   The manual's default language is Turkish, so /docs/ is Turkish and
+   /docs/en/, /docs/zh/ are the translations. A request such as
+   /docs/?lang=en jumps straight to the English version of the page you are
+   on, and the Material language switcher keeps the parameter in sync. */
 (function () {
   var SUPPORTED = ['tr', 'en', 'zh'];
 
   function currentLocale() {
-    var path = window.location.pathname;
-    var m = path.match(/\/(en|zh)\//);
-    if (m) return m[1];
-    return 'tr';
+    var m = window.location.pathname.match(/\/(en|zh)\//);
+    return m ? m[1] : 'tr';
   }
 
   function requested() {
@@ -17,31 +17,30 @@
     return SUPPORTED.indexOf(q) !== -1 ? q : null;
   }
 
-  function localePrefix(locale) {
+  function prefix(locale) {
     return locale === 'tr' ? '' : '/' + locale;
   }
 
-  function absolutePath() {
-    // Path inside the manual, e.g. /MRC-Tuner-Rom/docs/en/05-harita-duzenleme/
+  function pathInsideManual() {
     var path = window.location.pathname;
-    var docsAt = path.indexOf('/docs');
-    if (docsAt === -1) return '/';
-    var rest = path.slice(docsAt + '/docs'.length);
-    return rest.replace(/^\/(en|zh)/, '') || '/';
+    var at = path.indexOf('/docs');
+    if (at === -1) return '/';
+    var rest = path.slice(at + '/docs'.length).replace(/^\/(en|zh)/, '');
+    return rest || '/';
   }
 
   var want = requested();
   var have = currentLocale();
   if (want && want !== have) {
-    var target = '/docs' + localePrefix(want) + absolutePath();
-    window.location.replace(target + window.location.search + window.location.hash);
+    window.location.replace('/docs' + prefix(want) + pathInsideManual()
+      + window.location.search + window.location.hash);
   }
 
-  // Keep the query parameter in sync when the Material language switcher is used.
   document.addEventListener('DOMContentLoaded', function () {
-    document.querySelectorAll('[data-md-component="alternate"] a').forEach(function (a) {
-      a.addEventListener('click', function (ev) {
-        var href = a.getAttribute('href');
+    var links = document.querySelectorAll('[data-md-component="alternate"] a');
+    for (var i = 0; i < links.length; i++) {
+      links[i].addEventListener('click', function (ev) {
+        var href = this.getAttribute('href');
         if (!href) return;
         ev.preventDefault();
         var target = new URL(href, window.location.origin);
@@ -49,8 +48,6 @@
         target.searchParams.set('lang', m ? m[1] : 'tr');
         window.location.href = target.toString();
       });
-    });
-  });
-    });
+    }
   });
 })();
