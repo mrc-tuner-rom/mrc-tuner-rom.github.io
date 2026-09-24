@@ -138,12 +138,6 @@ h1 .accent { color: var(--accent); }
   padding: 20px;
   box-shadow: 0 24px 60px rgba(0, 0, 0, .38);
 }
-.hero-art img {
-  display: block;
-  margin: 0 auto;
-  max-width: 430px;
-  width: 100%;
-}
 .caption { color: var(--dimmer); font-size: 13px; margin-top: 12px; text-align: center; }
 
 /* ── stats ──────────────────────────────────────────────── */

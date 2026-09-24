@@ -33,7 +33,7 @@
   var want = requested();
   var have = currentLocale();
   if (want && want !== have) {
-    var target = localePrefix(want) + absolutePath();
+    var target = '/docs' + localePrefix(want) + absolutePath();
     window.location.replace(target + window.location.search + window.location.hash);
   }
 
@@ -49,6 +49,8 @@
         target.searchParams.set('lang', m ? m[1] : 'tr');
         window.location.href = target.toString();
       });
+    });
+  });
     });
   });
 })();
